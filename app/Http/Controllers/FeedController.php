@@ -46,7 +46,7 @@ class FeedController extends Controller
 
                             $filename = md5(time() . rand(0, 9999)) . '.jpg';
 
-                            $destPath = public_path('/media/uploads');
+                            $destPath = public_path('/storage/media/uploads');
 
                             $img = Image::make($photo->path())
                                 ->resize(800, null, function ($constraint) {
@@ -166,8 +166,8 @@ class FeedController extends Controller
 
             // Preencher informações de usuário
             $userInfo = User::find($postItem['id_user']);
-            $userInfo['avatar'] = url('media/avatars/' . $userInfo['avatar']);
-            $userInfo['cover'] = url('media/covers/' . $userInfo['cover']);
+            $userInfo['avatar'] = url('storage/media/avatars/' . $userInfo['avatar']);
+            $userInfo['cover'] = url('storage/media/covers/' . $userInfo['cover']);
             $postList[$postKey]['user'] = $userInfo;
 
             // Preencher informações de LIKE
@@ -183,8 +183,8 @@ class FeedController extends Controller
             $comments = PostComment::where('id_post', $postItem['id'])->get();
             foreach ($comments as $commentKey => $comment) {
                 $user = User::find($comment['id_user']);
-                $user['avatar'] = url('media/avatars/' . $user['avatar']);
-                $user['cover'] = url('media/covers/' . $user['cover']);
+                $user['avatar'] = url('storage/media/avatars/' . $user['avatar']);
+                $user['cover'] = url('storage/media/covers/' . $user['cover']);
                 $comments[$commentKey]['user'] = $user;
             }
             $postList[$postKey]['comments'] = $comments;
@@ -221,7 +221,7 @@ class FeedController extends Controller
         $posts = $this->_postListToObject($postList, $this->loggedUser['id']);
 
         foreach ($posts as $pkey => $post) {
-            $posts[$pkey]['body'] = url('media/uploads/' . $posts[$pkey]['body']);
+            $posts[$pkey]['body'] = url('storage/media/uploads/' . $posts[$pkey]['body']);
         }
 
         $array['posts'] = $posts;

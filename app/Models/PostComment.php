@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class PostComment extends Model
 {
     use HasFactory;
+
+    public $timestamps = false;
+
+    protected $table = 'postcomments';
 }
